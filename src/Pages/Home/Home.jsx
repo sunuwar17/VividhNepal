@@ -1,139 +1,182 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Avatar, InputBase, Paper } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import TextField from "@mui/material/TextField";
+import { Paper } from '@mui/material';
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import { useTheme } from '@mui/material/styles';
+import MobileStepper from '@mui/material/MobileStepper';
+import BlogCard from './Component/Blogcard';
+import Footer from '../../Global/Footer/Footer';
+import Header from '../../Global/Header/Header';
+import {useMemo} from 'react';
+
+import Grid from '@material-ui/core/Grid';
+import AboutCard from './Component/AboutCard';
+import NewsLetter from './Component/NewsLetter';
+import Watch from './Component/Watch';
+import home1 from './home1.jpeg';
+import home2 from './home2.jpeg';
+import h3 from './h3.jpg';
 
 
 
-const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact', 'News', 'Gallery'];
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+const images = [
 
-function Home(props) {
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  {
+    label: 'home1, img',
+    imgPath: home1
+  },
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+
+  {
+    label: 'Bali, Indonesia',
+    imgPath: h3
+  },
+
+  {
+    label: 'Goč, Serbia',
+    imgPath: home2
+
+  },
+
+];
+
+
+function Home() {
+
+
+  // For slideshow of home        
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = images.length;
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} 
-    sx={{ textAlign: 'center' }}>
-      <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'flex-start' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const handleStepChange = (step) => {
+    setActiveStep(step);
+  };
+  //slideshow of home ends here
+
+
+
+
 
   return (
-    <Box sx={{ display: 'flex'}}>
-      <AppBar component="nav" sx={{ px:{lg:15, sm:15, xs:'none'}}}>
-        <Toolbar sx={{justifyContent: 'space-between'}} >
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ display: { sm: 'none' } }}
+    <>
+      <Paper >
+        <Header />
+
+
+        <Paper sx={{flexGrow: 1 }}>
+
+          <AutoPlaySwipeableViews
+            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+            index={activeStep}
+            onChangeIndex={handleStepChange}
+            enableMouseEvents
+
           >
-            <MenuIcon />
-          </IconButton>
+              
+            {images.map((step, index) =>  (
+              <div key={step.label}>
+                {Math.abs(activeStep - index) <= 2 ? (
+                  <Box
+                    component="img"
+                    sx={{
+                      height: '100vh',
+                      display: 'block',
+                      width: '100%',
+                      overflow: 'hidden',
 
-          <Box 
-          sx={{ display:{lg:'block', sm:'block', xs:'none'}}}>
-          <Avatar 
-          sx={{flexGrow: 1}} 
-          alt="Remy Sharp" 
-          src="https://source.unsplash.com/random" />
-          </Box>
+                    }}
+                    src={step.imgPath}
+                    alt={step.label}
 
-          <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
+                  />
+                ) : null}
+              </div>
             ))}
-          </Box>
+          </AutoPlaySwipeableViews>
 
-          <Box 
-          sx={{ display:{lg:'none',sm:'none', xs:'block'}}}>
-          <Avatar 
-          sx={{flexGrow: 1}} 
-          alt="Remy Sharp" 
-          src="https://source.unsplash.com/random" />
-          </Box>
+          <MobileStepper
+            steps={maxSteps}
+            position="static"
+            activeStep={activeStep}
+            display='absolute'
+            nextButton={
+              <Button
+                size="small"
+                onClick={handleNext}
+                disabled={activeStep === maxSteps - 1}
+              >
+                Next
+                {theme.direction === 'rtl' ? (
+                  <KeyboardArrowLeft />
+                ) : (
+                  <KeyboardArrowRight />
+                )}
+              </Button>
+            }
+            backButton={
+              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                {theme.direction === 'rtl' ? (
+                  <KeyboardArrowRight />
+                ) : (
+                  <KeyboardArrowLeft />
+                )}
+                Prev
+              </Button>
+            }
+          />
+
+
+
+          <Paper sx={{ display: 'flex', justifyContent: 'space-between', px: 20, py: 4 }}>
+            <Watch country="Nepal" />
+            <Watch country="London" />
+            <Watch country="HongKong" />
+            <Watch country="Paris" />
+          </Paper>
+
+
+          <Paper sx={{ px: 20, pb: 4 }}>
+            <Grid container spacing={3} >
+              <Grid item xs={12} md={12} lg={8} >
+                <Box sx={{ flexGrow: 1, pb: 2 }} >
+                  <BlogCard />
+                </Box>
+
+              </Grid>
+              <Grid item xs={12} md={12} lg={4} >
+                <Box sx={{ flexGrow: 1, pb: 2 }} >
+                  <AboutCard />
+                </Box>
+                <Box sx={{ flexGrow: 1, pb: 2 }} >
+                  <NewsLetter />
+                </Box>
+              </Grid>
+            </Grid>
+          </Paper>
+
           
-          <Paper
-             component="form"
-             sx={{
-                 // ml: 1,
-                 p: '0px 4px',
-                 display: 'flex',
-                 alignItems: 'center',
-                 width: {
-                     xs: 60,
-                     md: 150
-                 },
-                 height: '35px',
-                 
-             }}
-         >
-             <InputBase
-                 sx={{ ml: 1 }}
-                 placeholder="Search..."
-                 inputProps={{ 'aria-label': 'search....' }}
-             />
-             <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-             <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-                 <SearchIcon />
-             </IconButton>
-         </Paper>              
-        </Toolbar>
-      </AppBar>
-
-      <Box component="nav">
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </Box> 
-
-    </Box>
-  );
+        </Paper>
+      </Paper>
+      <Paper sx={{bottom:'0', left:0, width:'100%'}}>
+            <Footer />
+          </Paper>
+    </>
+  )
 }
 
 
-export default Home;
+export default Home
