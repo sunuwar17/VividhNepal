@@ -125,7 +125,7 @@ function Header(props) {
                   inputProps={{ 'aria-label': 'search....' }}
                 />
                 <Divider sx={{ height: 28 }} orientation="vertical" />
-                <IconButton type="submit" sx={{}} aria-label="search">
+                <IconButton type="submit" aria-label="search">
                   <SearchIcon />
                 </IconButton>
               </Paper>

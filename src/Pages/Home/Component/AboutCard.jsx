@@ -31,6 +31,7 @@ function AboutCard() {
                                 sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}
                                 variant="body2"
                                 color="textSecondary"
+                                
                               
                             >
                                 Green Journey is travel related blog site which help in promoting tourism in Nepal and guide tourists who wants to know more about Nepal.
@@ -39,9 +40,9 @@ function AboutCard() {
 
                         </Box>
 
-                    </CardContent>
+                    </CardContent> 
                 </CardActionArea>
-                <Box sx={{ textalign: "center" }}>
+                <Box style={{ textAlign:'center'}}>
                     <Button >
                         About Us
                     </Button>

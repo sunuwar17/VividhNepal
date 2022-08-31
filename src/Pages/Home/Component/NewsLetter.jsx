@@ -5,34 +5,35 @@ import Card from '@material-ui/core/Card'
 import { Box} from '@mui/material';
 import Button from '@mui/material/Button';
 
-
 function NewsLetter() {
     var cardStyle = {
         display: 'block',
         width: '100%',
         transitionDuration: '0.3s',
-        height: 'auto'
+        height: 'auto',
+        display: 'flex'
     }
     return (
         <>
-            <Card elevation={3} style={cardStyle} sx={{ display: 'flex'}} >
-                <Box sx={{p:4, textalign:'center'}}>
+            <Card elevation={3} style={cardStyle} >
+                <Box sx={{p:4}}>
                     <Typography
-                        color="textSecondary"
-                        variant="h6" 
-                        gutterBottom
+                        color="inherit"
+                        variant="h6"
+                        style={{textAlign:'center'}}
                     >
                         NEWSLETTER
                     </Typography>
                     <Typography
                          variant="body2"
                          color="textSecondary"
-                        gutterBottom
+                        
                     >
                         Sign Up to Recieve Latest Story
+                        
                     </Typography>
-                    <TextField id="outlined-basic" label="Email" variant="outlined" size='5'/>
-                    <Button justifycontent="center">
+                    <TextField id="outlined-basic" label="Email" variant="outlined" size='3'/>
+                    <Button >
                     Subscribe
                 </Button>
                 </Box>

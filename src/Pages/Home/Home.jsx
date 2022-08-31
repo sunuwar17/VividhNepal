@@ -11,8 +11,6 @@ import MobileStepper from '@mui/material/MobileStepper';
 import BlogCard from './Component/Blogcard';
 import Footer from '../../Global/Footer/Footer';
 import Header from '../../Global/Header/Header';
-import {useMemo} from 'react';
-
 import Grid from '@material-ui/core/Grid';
 import AboutCard from './Component/AboutCard';
 import NewsLetter from './Component/NewsLetter';
