@@ -11,7 +11,7 @@ function AboutCard() {
         display: 'block',
         width: '100%',
         transitionDuration: '0.3s',
-        height: '25vw'
+        height: 'auto'
     }
     return (
         <>
@@ -43,7 +43,7 @@ function AboutCard() {
                     </CardContent> 
                 </CardActionArea>
                 <Box style={{ textAlign:'center'}}>
-                    <Button >
+                    <Button variant="contained" sx={{mb:3}}>
                         About Us
                     </Button>
                 </Box>

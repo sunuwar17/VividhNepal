@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { Paper } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -18,6 +18,8 @@ import Watch from './Component/Watch';
 import home1 from './home1.jpeg';
 import home2 from './home2.jpeg';
 import h3 from './h3.jpg';
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 
 
@@ -44,6 +46,7 @@ const images = [
 ];
 
 
+
 function Home() {
 
 
@@ -65,24 +68,28 @@ function Home() {
   };
   //slideshow of home ends here
 
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
 
+
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
 
 
   return (
     <>
-      <Paper >
-        <Header />
-
-
-        <Paper sx={{flexGrow: 1 }}>
+      
+        <Header/>
+      
+        <Paper >
 
           <AutoPlaySwipeableViews
+            style={{position:'relative'}}
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
             index={activeStep}
             onChangeIndex={handleStepChange}
             enableMouseEvents
-
           >
               
             {images.map((step, index) =>  (
@@ -91,7 +98,7 @@ function Home() {
                   <Box
                     component="img"
                     sx={{
-                      height: '100vh',
+                      height: '90vh',
                       display: 'block',
                       width: '100%',
                       overflow: 'hidden',
@@ -108,25 +115,29 @@ function Home() {
 
           <MobileStepper
             steps={maxSteps}
-            position="static"
+            sx={{
+              position:'absolute',
+              bottom: '15rem;',
+              background:'transparent'
+            }}
             activeStep={activeStep}
-            display='absolute'
             nextButton={
               <Button
                 size="small"
                 onClick={handleNext}
                 disabled={activeStep === maxSteps - 1}
+            
               >
-                Next
+                <Typography color="white">Next</Typography>
                 {theme.direction === 'rtl' ? (
-                  <KeyboardArrowLeft />
+                  <KeyboardArrowLeft color='inherit'/>
                 ) : (
-                  <KeyboardArrowRight />
+                  <KeyboardArrowRight color="primary"/>
                 )}
               </Button>
             }
             backButton={
-              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+              <Button size="small"  onClick={handleBack} disabled={activeStep === 0}>
                 {theme.direction === 'rtl' ? (
                   <KeyboardArrowRight />
                 ) : (
@@ -136,8 +147,8 @@ function Home() {
               </Button>
             }
           />
-
-
+        </Paper>
+             
 
           <Paper sx={{ display: 'flex', justifyContent: 'space-between', px: 20, py: 4 }}>
             <Watch country="Nepal" />
@@ -166,9 +177,8 @@ function Home() {
             </Grid>
           </Paper>
 
-          
-        </Paper>
-      </Paper>
+     
+  
       <Paper sx={{bottom:'0', left:0, width:'100%'}}>
             <Footer />
           </Paper>

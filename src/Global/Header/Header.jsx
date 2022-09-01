@@ -66,8 +66,7 @@ function Header(props) {
     <>
       <Paper sx={{ display: 'flex' }}>
         <CssBaseline />
-        <HideOnScroll {...props}>
-          <AppBar component="nav" sx={{ position: 'fiexd', width: '100%', px: { lg: 5, sm: 12, xs: 'none' } }}>
+          <AppBar component="nav" sx={{  width: '100%', position:'sticky' }}>
             <Toolbar sx={{ justifyContent: 'space-between', width: '100%' }} >
               <IconButton
                 color="inherit"
@@ -78,22 +77,23 @@ function Header(props) {
               >
                 <MenuIcon />
               </IconButton>
+              <Box sx={{ display: 'flex' }}>
+                <Box
+                  sx={{ display: { lg: 'block', sm: 'block', xs: 'none' }, height: 80, cursor: 'pointer', px: 4,py:2}}
+                  component="img"
+                  alt="logo"
+                  src={logo}
+                  onClick={() => navigate("/")} />
 
-              <Box
-                sx={{ display: { lg: 'block', sm: 'block', xs: 'none' }, height: 80, cursor: 'pointer', p: 2 }}
-                component="img"
-                alt="logo"
-                src={logo}
-                onClick={() => navigate("/")} />
-
-              <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                {navItems.map((item) => (
-                  <Button key={item} sx={{ color: '#fff' }}
-                    onClick={() => navNavigation(item)}
-                  >
-                    {item}
-                  </Button>
-                ))}
+                <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                  {navItems.map((item) => (
+                    <Button key={item} sx={{ color: '#fff' }}
+                      onClick={() => navNavigation(item)}
+                    >
+                      {item}
+                    </Button>
+                  ))}
+                </Box>
               </Box>
 
               <Box
@@ -104,7 +104,11 @@ function Header(props) {
                   src={logo}
                 />
               </Box>
-
+              <Box 
+              sx={{
+                display:'flex',
+                display: { xs: 'none', lg: 'flex' },
+              }}>
               <Paper
                 component="form"
                 sx={{
@@ -116,19 +120,27 @@ function Header(props) {
                     md: 150
                   },
                   height: '35px',
-                  display:{xs:'none', lg:'flex'}
+                  color:'inherit'
                 }}
               >
                 <InputBase
                   sx={{ ml: 1 }}
                   placeholder="Search..."
-                  inputProps={{ 'aria-label': 'search....' }}
+                  inputProps={{ 'aria-label': 'search...' }}
+                  
                 />
                 <Divider sx={{ height: 28 }} orientation="vertical" />
                 <IconButton type="submit" aria-label="search">
                   <SearchIcon />
                 </IconButton>
+
               </Paper>
+             
+                <Button variant="outlined" color="custom" sx={{ml:1}}>
+                  SignIn
+                </Button>
+              
+              </Box>
 
               {/* <Paper>
                 <Box >
@@ -144,7 +156,6 @@ function Header(props) {
 
             </Toolbar>
           </AppBar>
-        </HideOnScroll>
 
         <Box component="nav">
           <Drawer
@@ -153,7 +164,7 @@ function Header(props) {
             open={mobileOpen}
             onClose={handleDrawerToggle}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              // keepMounted: true, // Better open performance on mobile.
             }}
             sx={{
               display: { xs: 'block', sm: 'none' },

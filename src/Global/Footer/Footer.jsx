@@ -14,8 +14,8 @@ function Footer() {
         right:0; */}
         <Grid container spacing={0}  >
           <Grid item xs={12} sm={4} lg={4} sx={{ textAlign: 'center' }}  >
-            <Box sx={{ textAlign: 'center' }}>
-              <Box fontSize={16}  >Support</Box>
+            <Box sx={{ textAlign: 'center', p:2 }}>
+              <Box  sx={{ pb:2,fontSize:16}} >Support</Box>
               <Box>
                 <Link href="/" color="inherit">
                   Safety Information
@@ -30,8 +30,8 @@ function Footer() {
 
           </Grid>
           <Grid item xs={12} sm={4} lg={4}>
-            <Box sx={{ textAlign: 'center' }}>
-              <Box fontSize={16}  >Company</Box>
+            <Box sx={{ textAlign: 'center',p:2 }}>
+              <Box  sx={{ pb:2, fontSize:16}}  >Company</Box>
               <Box>
                 <Link href="/" color="inherit">
                   About Us
@@ -50,8 +50,8 @@ function Footer() {
             </Box>
           </Grid>
           <Grid item xs={12} sm={4} lg={4}>
-            <Box sx={{ textAlign: 'center' }}>
-              <Box fontSize={16}>Contact</Box>
+            <Box sx={{ textAlign: 'center', p:2 }}>
+              <Box sx={{fontSize:16, pb:2}}>Contact</Box>
               <Box>
                 <Link href="/" color="inherit">
                   FAQ

@@ -9,6 +9,8 @@ import About from './Pages/About/About';
 import Blog from './Pages/Blogs/Blog';
 import News from './Pages/News/News';
 import Shop from './Pages/Shop/Shop';
+import Login1 from './Auth/Login1';
+
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
             
               {/* HomePage */}
               <Route element={<Home />} path="/"/> 
+              <Route element={<Login1 />} path="/login"/> 
+
 
               <Route element= {<Gallery/>} path="gallery"/>
               <Route element= {<Contact/>} path="contact"/>
