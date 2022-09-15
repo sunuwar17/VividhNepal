@@ -19,7 +19,8 @@ import home1 from './home1.jpeg';
 import home2 from './home2.jpeg';
 import h3 from './h3.jpg';
 import { useAuth0 } from "@auth0/auth0-react";
-
+import Calendar from '../../Global/Calendar';
+import { Gmap } from '../../Global/Gmap';
 
 
 
@@ -117,7 +118,7 @@ function Home() {
             steps={maxSteps}
             sx={{
               position:'absolute',
-              bottom: '15rem;',
+              bottom: '0rem;',
               background:'transparent'
             }}
             activeStep={activeStep}
@@ -126,7 +127,7 @@ function Home() {
                 size="small"
                 onClick={handleNext}
                 disabled={activeStep === maxSteps - 1}
-            
+              
               >
                 <Typography color="white">Next</Typography>
                 {theme.direction === 'rtl' ? (
@@ -139,23 +140,28 @@ function Home() {
             backButton={
               <Button size="small"  onClick={handleBack} disabled={activeStep === 0}>
                 {theme.direction === 'rtl' ? (
-                  <KeyboardArrowRight />
+                  <KeyboardArrowRight color="inherit" />
                 ) : (
                   <KeyboardArrowLeft />
                 )}
-                Prev
+                <Typography color="white">Prev </Typography>
               </Button>
             }
           />
         </Paper>
              
-
-          <Paper sx={{ display: 'flex', justifyContent: 'space-between', px: 20, py: 4 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between',  pt: 5,
+          border:1,
+          mx:20,
+          borderRadius:4,
+          pb:3,
+          px:15,
+           my:5}}>
             <Watch country="Nepal" />
             <Watch country="London" />
             <Watch country="HongKong" />
             <Watch country="Paris" />
-          </Paper>
+          </Box>
 
 
           <Paper sx={{ px: 20, pb: 4 }}>
@@ -164,6 +170,7 @@ function Home() {
                 <Box sx={{ flexGrow: 1, pb: 2 }} >
                   <BlogCard />
                 </Box>
+                
 
               </Grid>
               <Grid item xs={12} md={12} lg={4} >
@@ -177,7 +184,23 @@ function Home() {
             </Grid>
           </Paper>
 
-     
+      <Paper
+      sx={{
+        display:'flex',
+        flexWrap: 'wrap',
+        justifyContent:'space-between',
+         height:'600',
+          width:'800',
+          px:20,
+          pb:5
+
+      }}
+      >
+           <Calendar/>
+           <Gmap/> 
+
+
+      </Paper>
   
       <Paper sx={{bottom:'0', left:0, width:'100%'}}>
             <Footer />

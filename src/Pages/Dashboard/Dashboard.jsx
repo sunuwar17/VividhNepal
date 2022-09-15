@@ -13,10 +13,8 @@ import Container from '@mui/material/Container';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import CategoryIcon from '@mui/icons-material/Category';
-import MenuBox from './Component/MenuBox';
-import MenuText from './Component/MenuText';
-import MenuIconBadge from '../../Global/MenuIconBadge';
+import { mainListItems, secondaryListItems } from './Component/listItems';
+import List from '@mui/material/List';
 
 const drawerWidth = 240;
 
@@ -125,58 +123,11 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
 
-
-          {/* Home */}
-          <MenuBox
-          >
-            <MenuIconBadge
-              children={
-                <CategoryIcon color="primary" />
-              }
-              show={false}
-            />
-            <MenuText label='Home' />
-          </MenuBox>
-          {/* Home ends */}
-
-          {/* Blogs */}
-          <MenuBox
-          >
-            <MenuIconBadge
-              children={
-                <CategoryIcon color="primary" />
-              }
-              show={false}
-            />
-            <MenuText label='Blogs' />
-          </MenuBox>
-          {/* Blogs ends */}
-
-          {/* Products */}
-          <MenuBox
-          >
-            <MenuIconBadge
-              children={
-                <CategoryIcon color="primary" />
-              }
-              show={false}
-            />
-            <MenuText label='Products' />
-          </MenuBox>
-          {/* Products ends */}
-
-          {/* Images */}
-          <MenuBox
-          >
-            <MenuIconBadge
-              children={
-                <CategoryIcon color="primary" />
-              }
-              show={false}
-            />
-            <MenuText label='Images' />
-          </MenuBox>
-          {/* Images ends */}
+          <List component="nav">
+            {mainListItems}
+            <Divider sx={{ my: 1 }} />
+            {secondaryListItems}
+          </List>  
 
         </Drawer>
         <Box

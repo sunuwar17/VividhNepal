@@ -14,9 +14,12 @@ import { InputBase, Paper } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import HideOnScroll from './HideOnScroll';
 import { useNavigate } from "react-router-dom";
 import logo from '../../logo.png';
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from './Component/LoginButton'
+import LogoutButton from './Component/LogoutButton';
+import Profile from './Component/Profile';
 
 
 function Header(props) {
@@ -52,61 +55,69 @@ function Header(props) {
 
   const navigate = useNavigate();
 
+
   const navNavigation = (name) => {
     if (name === 'Gallery') navigate('/gallery')
     if (name === 'Home') navigate('/')
     if (name === 'About') navigate('/about')
     if (name === 'Contact') navigate('/contact')
     if (name === 'Shop') navigate('/shop')
-    if (name === 'Blog') navigate('/blog')
+    if (name === 'Blog') navigate('/blogpage')
     if (name === 'News') navigate('/news')
   }
+
+  //auth0 authentication 
+  const { loginWithRedirect, logout, user, isAuthenticated, isLoading  } = useAuth0();
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+
 
   return (
     <>
       <Paper sx={{ display: 'flex' }}>
         <CssBaseline />
-          <AppBar component="nav" sx={{  width: '100%', position:'sticky' }}>
-            <Toolbar sx={{ justifyContent: 'space-between', width: '100%' }} >
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ display: { sm: 'none' } }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Box sx={{ display: 'flex' }}>
-                <Box
-                  sx={{ display: { lg: 'block', sm: 'block', xs: 'none' }, height: 80, cursor: 'pointer', px: 4,py:2}}
-                  component="img"
-                  alt="logo"
-                  src={logo}
-                  onClick={() => navigate("/")} />
-
-                <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                  {navItems.map((item) => (
-                    <Button key={item} sx={{ color: '#fff' }}
-                      onClick={() => navNavigation(item)}
-                    >
-                      {item}
-                    </Button>
-                  ))}
-                </Box>
-              </Box>
-
+        <AppBar component="nav" sx={{ width: '100%', position: 'sticky' }}>
+          <Toolbar sx={{ justifyContent: 'space-between', width: '100%' }} >
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Box sx={{ display: 'flex' }}>
               <Box
-                sx={{ display: { lg: 'none', sm: 'none', xs: 'block' } }}>
-                <img
-                  sx={{ flexGrow: 1 }}
-                  alt="logo"
-                  src={logo}
-                />
+                sx={{ display: { lg: 'block', sm: 'block', xs: 'none' }, height: 80, cursor: 'pointer', px: 4, py: 2 }}
+                component="img"
+                alt="logo"
+                src={logo}
+                onClick={() => navigate("/")} />
+
+              <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                {navItems.map((item) => (
+                  <Button key={item} sx={{ color: '#fff' }}
+                    onClick={() => navNavigation(item)}
+                  >
+                    {item}
+                  </Button>
+                ))}
               </Box>
-              <Box 
+            </Box>
+
+            <Box
+              sx={{ display: { lg: 'none', sm: 'none', xs: 'block' } }}>
+              <img
+                sx={{ flexGrow: 1 }}
+                alt="logo"
+                src={logo}
+              />
+            </Box>
+            <Box
               sx={{
-                display:'flex',
+                display: 'flex',
                 display: { xs: 'none', lg: 'flex' },
               }}>
               <Paper
@@ -120,14 +131,15 @@ function Header(props) {
                     md: 150
                   },
                   height: '35px',
-                  color:'inherit'
+                  color: 'inherit',
+                  mr:1
                 }}
               >
                 <InputBase
                   sx={{ ml: 1 }}
                   placeholder="Search..."
                   inputProps={{ 'aria-label': 'search...' }}
-                  
+
                 />
                 <Divider sx={{ height: 28 }} orientation="vertical" />
                 <IconButton type="submit" aria-label="search">
@@ -135,27 +147,18 @@ function Header(props) {
                 </IconButton>
 
               </Paper>
-             
-                <Button variant="outlined" color="custom" sx={{ml:1}}>
-                  SignIn
-                </Button>
-              
+              <Box sx={{display:'flex'}}>
+                <LoginButton />
+                <Profile/>
+                <LogoutButton/>
+               
               </Box>
 
-              {/* <Paper>
-                <Box >
+            </Box>
 
-                  <IconButton type="submit" onClick={handleVisibility} sx={{ p: '10px' }} aria-label="search">
-                    <SearchIcon />
-                  </IconButton>
-                </Box>
-                <aside className={visible ? "open" : "close"} style={{width:'200'}}>
-                  <InputBase placeholder="Search..." type="text" />
-                </aside>
-              </Paper> */}
-
-            </Toolbar>
-          </AppBar>
+           
+          </Toolbar>
+        </AppBar>
 
         <Box component="nav">
           <Drawer

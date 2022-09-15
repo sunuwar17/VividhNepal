@@ -1,9 +1,8 @@
 import React from 'react'
 import Header from '../../Global/Header/Header';
 import Footer from '../../Global/Footer/Footer';
-import { Paper,Box } from "@mui/material";
+import {Box } from "@mui/material";
 import Typography from '@mui/material/Typography';
-
 
 function News() {
   return (

@@ -1,12 +1,12 @@
 import React from 'react'
 import Header from '../../Global/Header/Header';
 import Footer from '../../Global/Footer/Footer';
-import { Paper,Box } from "@mui/material";
+import { Paper } from "@mui/material";
 import Grid from '@material-ui/core/Grid';
 import BlogCard from '../Home/Component/Blogcard';
-
+import { useNavigate } from 'react-router';
 function Blog() {
-
+const navigate = useNavigate();
   return (
     <>
     <Header />
@@ -15,7 +15,7 @@ function Blog() {
             {Array.from(Array(6)).map((_, index) => (
 
               <Grid item xs={12} md={12} lg={12} >
-                  <BlogCard />
+                  <BlogCard onClick={() => navigate("/Blog/:slug")}/>
                   
 
               </Grid>
