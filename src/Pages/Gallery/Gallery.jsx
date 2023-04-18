@@ -9,7 +9,7 @@ function Gallery() {
   return (
     <>
     <Header/>
-    <h1>Gallery Items</h1>
+    <h1>Gallery Items updated</h1>
  
        <Box minHeight='100vh'>
        <Typography sx={{textAlign:'center', fontSize:'40px'}}>This Is Our Awesome Gallery.  </Typography>
