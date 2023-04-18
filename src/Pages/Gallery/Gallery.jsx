@@ -9,7 +9,7 @@ function Gallery() {
   return (
     <>
     <Header/>
- 
+      <h2>testing</h2>
        <Box minHeight='100vh'>
        <Typography sx={{textAlign:'center', fontSize:'40px'}}>This Is Our Awesome Gallery.  </Typography>
        <img alt= "water" sx={{justifyContent:'center'}}src="https://source.unsplash.com/random"/>
